@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tal's HR Executive Job Hunter — Israel 2026</title>
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --surface2: #f9fafb;
+    --border: #e2e5ea;
+    --text: #1a1d23;
+    --muted: #6b7280;
+    --accent: #0d9488;
+    --accent-light: #ccfbf1;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --radius: 10px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: #0f2520; color: #fff; padding: 0 2rem; }
+  .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .header-left { display: flex; align-items: center; gap: 1rem; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #0891b2, #0d9488); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+  .header-title { font-size: 1.05rem; font-weight: 600; }
+  .header-sub { font-size: 0.78rem; color: #94a3b8; margin-top: 1px; }
+  .header-right { display: flex; align-items: center; gap: 1.2rem; }
+  .last-updated { font-size: 0.75rem; color: #64748b; }
+  .refresh-btn { background: #0d9488; color: #fff; border: none; border-radius: 6px; padding: 0.45rem 1rem; font-size: 0.8rem; cursor: pointer; font-weight: 500; transition: background 0.15s; }
+  .refresh-btn:hover { background: #0f766e; }
+
+  /* STATS BAR */
+  .stats-bar { background: #0f2520; padding: 0 2rem; border-bottom: 1px solid #1a3830; }
+  .stats-inner { max-width: 1300px; margin: 0 auto; display: flex; gap: 2.5rem; padding: 0.9rem 0; }
+  .stat { display: flex; flex-direction: column; align-items: center; }
+  .stat-num { font-size: 1.5rem; font-weight: 700; color: #f1f5f9; line-height: 1; }
+  .stat-label { font-size: 0.68rem; color: #64748b; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-num.green { color: #34d399; }
+  .stat-num.amber { color: #fbbf24; }
+  .stat-num.red { color: #f87171; }
+  .stat-num.teal { color: #2dd4bf; }
+  .stat-divider { width: 1px; background: #1a3830; align-self: stretch; }
+
+  /* MAIN */
+  .main { max-width: 1300px; margin: 0 auto; padding: 1.8rem 2rem; }
+
+  /* PROFILE BANNER */
+  .profile-banner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.8rem; margin-bottom: 1.5rem; display: flex; gap: 2rem; align-items: flex-start; box-shadow: var(--shadow); }
+  .profile-section { flex: 1; }
+  .profile-section h3 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.5rem; }
+  .profile-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .profile-headline { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+  .tag { background: var(--accent-light); color: var(--accent); font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 500; }
+  .profile-divider { width: 1px; background: var(--border); }
+  .profile-kpis { display: flex; flex-direction: column; gap: 0.6rem; min-width: 220px; }
+  .kpi { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+  .kpi-label { color: var(--muted); }
+  .kpi-val { font-weight: 600; color: var(--text); }
+
+  /* CONTROLS */
+  .controls { display: flex; gap: 0.8rem; margin-bottom: 1.4rem; align-items: center; flex-wrap: wrap; }
+  .search-box { flex: 1; min-width: 200px; position: relative; }
+  .search-box input { width: 100%; padding: 0.55rem 0.9rem 0.55rem 2.4rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.85rem; background: var(--surface); outline: none; color: var(--text); }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; }
+  .filter-group { display: flex; gap: 0.4rem; }
+  .filter-btn { padding: 0.5rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.8rem; cursor: pointer; background: var(--surface); color: var(--muted); font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .sort-select { padding: 0.5rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.8rem; background: var(--surface); color: var(--text); cursor: pointer; outline: none; }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: center; gap: 0.8rem; margin: 1.6rem 0 0.8rem; }
+  .section-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+  .badge-high { background: var(--green-light); color: var(--green); }
+  .badge-medium { background: var(--amber-light); color: var(--amber); }
+  .badge-stretch { background: var(--purple-light); color: var(--purple); }
+  .badge-hidden { background: #f1f5f9; color: #64748b; }
+  .section-count { font-size: 0.8rem; color: var(--muted); }
+
+  /* JOB GRID */
+  .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1rem; }
+
+  /* JOB CARD */
+  .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); transition: box-shadow 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+  .job-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); transform: translateY(-1px); }
+  .job-card.applied { opacity: 0.7; }
+  .job-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .job-card.high::before { background: linear-gradient(90deg, #059669, #10b981); }
+  .job-card.medium::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
+  .job-card.stretch::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .job-card.not-relevant { opacity: 0.4; filter: grayscale(0.5); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .company-info { flex: 1; }
+  .company-name { font-size: 0.8rem; color: var(--muted); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+  .company-link { color: var(--accent); text-decoration: none; }
+  .company-link:hover { text-decoration: underline; }
+  .job-title { font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .fit-score { flex-shrink: 0; }
+  .score-circle { width: 52px; height: 52px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 1.05rem; line-height: 1; }
+  .score-circle.high { background: var(--green-light); color: var(--green); }
+  .score-circle.medium { background: var(--amber-light); color: var(--amber); }
+  .score-circle.stretch { background: var(--purple-light); color: var(--purple); }
+  .score-label { font-size: 0.5rem; font-weight: 500; opacity: 0.7; }
+  .card-meta { display: flex; gap: 1rem; margin-bottom: 0.65rem; flex-wrap: wrap; }
+  .meta-item { font-size: 0.78rem; color: var(--muted); }
+  .card-desc { font-size: 0.84rem; color: var(--text); line-height: 1.55; margin-bottom: 0.75rem; }
+  .match-reasons { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+  .match-tag { background: var(--accent-light); color: var(--accent); font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 500; }
+  .card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.65rem; }
+  .btn-apply { flex: 1; min-width: 120px; text-align: center; background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: 0.55rem 1rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+  .btn-apply:hover { background: #0f766e; }
+  .btn-mark { padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.78rem; font-weight: 500; cursor: pointer; background: var(--surface); color: var(--muted); transition: all 0.15s; white-space: nowrap; }
+  .btn-mark.applied { background: var(--green-light); color: var(--green); border-color: var(--green); }
+  .btn-mark.interviewing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .btn-save { padding: 0.55rem 0.65rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.9rem; cursor: pointer; background: var(--surface); transition: all 0.15s; }
+  .btn-save.saved { background: #fef3c7; border-color: #d97706; }
+  .btn-not-rel { padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: 7px; font-size: 0.78rem; font-weight: 500; cursor: pointer; background: var(--surface); color: var(--muted); white-space: nowrap; }
+  .btn-not-rel.flagged { background: var(--red-light); color: var(--red); border-color: var(--red); }
+  .card-notes textarea { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.7rem; font-size: 0.8rem; resize: vertical; min-height: 52px; font-family: inherit; color: var(--text); background: var(--surface2); outline: none; }
+  .card-notes textarea:focus { border-color: var(--accent); }
+  .status-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.3rem; }
+  .status-applied { background: var(--green-light); color: var(--green); }
+  .status-interviewing { background: var(--accent-light); color: var(--accent); }
+  .status-not-relevant { background: var(--red-light); color: var(--red); }
+
+  /* EMPTY STATE */
+  .empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 1.5rem; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 1rem; }
+
+  /* ──────────────── 768px tablet ──────────────── */
+  @media (max-width: 768px) {
+    .stats-inner { gap: 1.5rem; flex-wrap: wrap; }
+    .profile-banner { flex-direction: column; }
+    .profile-kpis { min-width: unset; }
+  }
+
+  /* ═══════════════════════════════
+     MOBILE — full redesign ≤ 640px
+  ═══════════════════════════════ */
+  @media (max-width: 640px) {
+    /* HEADER */
+    .header { padding: 0 0.85rem; }
+    .header-inner { padding: 0.7rem 0; flex-wrap: nowrap; gap: 0.4rem; }
+    .header-left { gap: 0.55rem; }
+    .avatar { width: 34px; height: 34px; font-size: 0.85rem; }
+    .header-title { font-size: 0.85rem; line-height: 1.2; }
+    .header-sub { font-size: 0.65rem; }
+    .header-right { flex-direction: row; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+    .last-updated { display: none; }
+    .refresh-btn { display: none; }
+    .hamburger-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff; font-size: 1.25rem; cursor: pointer; flex-shrink: 0; }
+
+    /* STATS BAR — 2-row grid */
+    .stats-bar { padding: 0 0.85rem; }
+    .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 0.5rem 0; flex-wrap: unset; width: auto; min-width: unset; }
+    .stat { padding: 0.5rem 0.25rem; border-right: 1px solid #1a3830; }
+    .stat:nth-child(4n) { border-right: none; }
+    .stat:nth-last-child(-n+3) { border-top: 1px solid #1a3830; }
+    .stat-num { font-size: 1.3rem; }
+    .stat-label { font-size: 0.58rem; white-space: nowrap; }
+    .stat-divider { display: none; }
+
+    /* MAIN */
+    .main { padding: 0.9rem 0.85rem; }
+
+    /* PROFILE BANNER */
+    .profile-banner { padding: 0.9rem 1rem; margin-bottom: 1rem; gap: 0.75rem; }
+    .profile-name { font-size: 1rem; }
+    .profile-headline { font-size: 0.8rem; }
+    .profile-divider { display: none; }
+    .profile-kpis { display: none; }
+    .profile-banner.expanded .profile-kpis { display: flex; }
+    .profile-toggle { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.73rem; color: var(--accent); cursor: pointer; border: none; background: none; font-family: inherit; padding: 0; }
+
+    /* CONTROLS */
+    .controls { flex-direction: row; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: nowrap; align-items: center; }
+    .search-box { flex: 1; min-width: 0; }
+    .search-box input { font-size: 0.88rem; padding: 0.6rem 0.75rem 0.6rem 2.2rem; }
+    .filter-group { display: none; }
+    .sort-select { display: none; }
+    .mobile-filter-btn { display: flex; align-items: center; gap: 0.35rem; padding: 0.6rem 0.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; font-size: 0.82rem; font-weight: 600; color: var(--text); cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s; }
+    .mobile-filter-btn.has-filter { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* SECTION HEADER */
+    .section-header { margin: 1.2rem 0 0.6rem; }
+
+    /* JOB CARDS */
+    .job-grid { gap: 0.75rem; }
+    .job-card { padding: 1.1rem; }
+    .company-name { font-size: 0.82rem; }
+    .job-title { font-size: 1.08rem; line-height: 1.35; }
+    .card-meta { font-size: 0.85rem; gap: 0.75rem; }
+    .card-desc { font-size: 0.9rem; line-height: 1.6; }
+    .match-tag { font-size: 0.78rem; padding: 0.25rem 0.6rem; }
+    .btn-apply { font-size: 0.95rem; padding: 0.7rem; }
+    .btn-mark { font-size: 0.88rem; padding: 0.65rem 0.8rem; }
+    .btn-not-rel { font-size: 0.88rem; padding: 0.65rem 0.8rem; }
+    .btn-save { font-size: 1rem; padding: 0.65rem; }
+    .score-circle { width: 46px; height: 46px; font-size: 0.95rem; }
+    .section-badge { font-size: 0.85rem; padding: 0.35rem 1rem; }
+    .section-count { font-size: 0.88rem; }
+    .card-notes textarea { font-size: 0.88rem; height: 60px; }
+
+    /* HEADHUNTER PANEL */
+    .container { padding: 0 0.85rem !important; }
+  }
+
+  /* MOBILE-ONLY ELEMENTS — hidden on desktop (≥641px) */
+  @media (min-width: 641px) {
+    .mobile-filter-btn { display: none; }
+    .hamburger-btn { display: none; }
+  }
+
+  /* MOBILE FILTER DRAWER */
+  .filter-drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    align-items: flex-end;
+  }
+  .filter-drawer-overlay.open { display: flex; }
+  .filter-drawer {
+    background: var(--surface);
+    width: 100%;
+    border-radius: 18px 18px 0 0;
+    padding: 1rem 1.25rem 2rem;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .filter-drawer-overlay.open .filter-drawer { transform: translateY(0); }
+  .drawer-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 1rem; }
+  .drawer-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+  .drawer-section { margin-bottom: 1rem; }
+  .drawer-section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin-bottom: 0.6rem; }
+  .drawer-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .drawer-opt { padding: 0.55rem 1rem; border: 1.5px solid var(--border); border-radius: 20px; font-size: 0.85rem; font-weight: 500; cursor: pointer; background: var(--surface); color: var(--text); transition: all 0.15s; }
+  .drawer-opt.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .drawer-sort-select { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid var(--border); border-radius: 9px; font-size: 0.9rem; background: var(--surface); color: var(--text); outline: none; }
+  .drawer-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+  .drawer-clear { flex: 1; padding: 0.75rem; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; background: var(--surface); color: var(--muted); }
+  .drawer-apply { flex: 2; padding: 0.75rem; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 700; cursor: pointer; background: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="avatar">TA</div>
+      <div>
+        <div class="header-title">HR Executive Job Hunter — Israel 2026</div>
+        <div class="header-sub">AI-powered · Daily refresh · Tal Aharonov</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="last-updated" id="lastUpdated">Last updated: April 2, 2026</div>
+      <button class="refresh-btn" onclick="searchJobBoards()">↻ Open Job Boards</button>
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="openFilterDrawer()" title="Filter jobs">&#9776;</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num teal" id="statTotal">14</div><div class="stat-label">Total Roles</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num green" id="statHigh">6</div><div class="stat-label">High Probability</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num amber" id="statMedium">6</div><div class="stat-label">Medium Probability</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num" style="color:#c084fc" id="statStretch">2</div><div class="stat-label">Stretch Roles</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num green" id="statApplied">0</div><div class="stat-label">Applied</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num amber" id="statSaved">0</div><div class="stat-label">Saved</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-num red" id="statHidden">0</div><div class="stat-label">Hidden</div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PROFILE BANNER -->
+  <div class="profile-banner">
+    <div class="profile-section">
+      <h3>Your Profile</h3>
+      <div class="profile-name">Tal Aharonov</div>
+      <div class="profile-headline">Senior HR Executive · CHRO / VP People · 25+ years · Israel high-tech, global corporates &amp; large enterprises</div>
+      <div class="tags">
+        <span class="tag">HR Strategy</span>
+        <span class="tag">People Leadership</span>
+        <span class="tag">Talent Management</span>
+        <span class="tag">1,700+ Employees Managed</span>
+        <span class="tag">Union Negotiations</span>
+        <span class="tag">$60M Payroll Budget</span>
+        <span class="tag">Organizational Development</span>
+        <span class="tag">HR Tech Transformation</span>
+        <span class="tag">MA Law · Bar Ilan</span>
+        <span class="tag">C-Suite Partner</span>
+      </div>
+      <button class="profile-toggle" onclick="this.closest('.profile-banner').classList.toggle('expanded'); this.textContent = this.closest('.profile-banner').classList.contains('expanded') ? '▲ Hide achievements' : '▼ Show achievements';">▼ Show achievements</button>
+    </div>
+    <div class="profile-divider"></div>
+    <div class="profile-kpis">
+      <h3>Key Achievements</h3>
+      <div class="kpi"><span class="kpi-label">Current role</span><span class="kpi-val">HR Director, Schindler Group</span></div>
+      <div class="kpi"><span class="kpi-label">Employees managed</span><span class="kpi-val">Up to 1,700+</span></div>
+      <div class="kpi"><span class="kpi-label">Payroll managed</span><span class="kpi-val">$60M / 190M ILS</span></div>
+      <div class="kpi"><span class="kpi-label">Largest HR team led</span><span class="kpi-val">10+ HR professionals</span></div>
+      <div class="kpi"><span class="kpi-label">C-suite experience</span><span class="kpi-val">VP HR (LT member, CEO report)</span></div>
+      <div class="kpi"><span class="kpi-label">Education</span><span class="kpi-val">MA Law, Bar Ilan University</span></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search by role, company, or keyword..." oninput="renderJobs()" />
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All Roles</button>
+      <button class="filter-btn" onclick="setFilter('high', this)">🟢 High</button>
+      <button class="filter-btn" onclick="setFilter('medium', this)">🟡 Medium</button>
+      <button class="filter-btn" onclick="setFilter('stretch', this)">🟣 Stretch</button>
+      <button class="filter-btn" onclick="setFilter('saved', this)">⭐ Saved</button>
+      <button class="filter-btn" onclick="setFilter('applied', this)">✅ Applied</button>
+      <button class="filter-btn" onclick="setFilter('not_relevant', this)">🚫 Hidden</button>
+    </div>
+    <select class="sort-select" id="sortSelect" onchange="renderJobs()">
+      <option value="score">Sort: Fit Score</option>
+      <option value="company">Sort: Company A-Z</option>
+      <option value="date">Sort: Newest First</option>
+    </select>
+    <button class="mobile-filter-btn" id="mobileFilterBtn" onclick="openFilterDrawer()">
+      ⚙️ Filter
+    </button>
+  </div>
+
+  <!-- JOB SECTIONS -->
+  <div id="jobContainer"></div>
+</div>
+
+<!-- MOBILE FILTER DRAWER -->
+<div class="filter-drawer-overlay" id="filterDrawerOverlay" onclick="closeFilterDrawerOnOverlay(event)">
+  <div class="filter-drawer">
+    <div class="drawer-handle"></div>
+    <div class="drawer-title">Filter &amp; Sort</div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Show Roles — tap to toggle (multi-select)</div>
+      <div class="drawer-options">
+        <button class="drawer-opt active" data-filter="all" onclick="selectDrawerFilter(this)">All Roles</button>
+        <button class="drawer-opt" data-filter="high" onclick="selectDrawerFilter(this)">🟢 High</button>
+        <button class="drawer-opt" data-filter="medium" onclick="selectDrawerFilter(this)">🟡 Medium</button>
+        <button class="drawer-opt" data-filter="stretch" onclick="selectDrawerFilter(this)">🟣 Stretch</button>
+        <button class="drawer-opt" data-filter="saved" onclick="selectDrawerFilter(this)">⭐ Saved</button>
+        <button class="drawer-opt" data-filter="applied" onclick="selectDrawerFilter(this)">✅ Applied</button>
+        <button class="drawer-opt" data-filter="not_relevant" onclick="selectDrawerFilter(this)">🚫 Hidden</button>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Sort By</div>
+      <select class="drawer-sort-select" id="drawerSortSelect">
+        <option value="score">Best Fit Score</option>
+        <option value="company">Company A–Z</option>
+        <option value="date">Newest First</option>
+      </select>
+    </div>
+    <div class="drawer-actions">
+      <button class="drawer-clear" onclick="clearDrawerFilters()">Reset</button>
+      <button class="drawer-apply" onclick="applyDrawerFilters()">Show Results</button>
+    </div>
+  </div>
+</div>
+
+<!-- HR HEADHUNTER CONTACTS PANEL -->
+<div class="container" style="margin-top:0; padding-top:0;">
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 2rem; margin-bottom:2rem;">
+    <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.25rem;">
+      <span style="font-size:1.4rem;">🎯</span>
+      <div>
+        <h2 style="margin:0; font-size:1.1rem; font-weight:700; color:var(--text);">HR Executive Search Firms — Israel</h2>
+        <p style="margin:0; font-size:0.8rem; color:var(--muted);">These firms specialize in placing CHRO, VP HR, and CPO roles. Register directly as a candidate — many placements are never posted publicly.</p>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:0.85rem;">
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">Korn Ferry Israel</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Global executive search with a dedicated CHRO &amp; CPO practice — Israel office in Tel Aviv</div>
+        <a href="https://www.kornferry.com/offices/tel-aviv" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">kornferry.com ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">Spencer Stuart Israel</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Top global retained search firm; prominent CHRO &amp; Human Capital practice with Israel placement history</div>
+        <a href="https://www.spencerstuart.com/offices/tel-aviv" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">spencerstuart.com ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">Adler Chomsky HR</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Leading Israeli HR consulting and executive search firm; deep network in HR leadership roles</div>
+        <a href="https://www.adlerchomsky.co.il" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">adlerchomsky.co.il ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">Deloitte Human Capital IL</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Deloitte Israel's HR Advisory &amp; Human Capital practice; places senior HR leaders in global corps &amp; large Israeli firms</div>
+        <a href="https://www2.deloitte.com/il/en/pages/human-capital/topics/human-capital.html" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">deloitte.com/il ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">Impact HR Consulting</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Israeli boutique firm specializing in senior HR placement and organizational consulting for tech &amp; enterprise</div>
+        <a href="https://www.impact-hr.co.il" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">impact-hr.co.il ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">PwC People &amp; Organization IL</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">PwC Israel's People &amp; Organization advisory; engages with CHRO/VP HR hires in leading Israeli companies</div>
+        <a href="https://www.pwc.com/il/en/services/consulting/people-and-organisation.html" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">pwc.com/il ↗</a>
+      </div>
+
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1rem;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:0.25rem;">MostWanted Executive Search</div>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Israeli executive search; active in C-level &amp; VP people placements for high-growth tech companies</div>
+        <a href="https://www.mostwanted.co.il" target="_blank" style="font-size:0.78rem; color:var(--accent); text-decoration:none;">mostwanted.co.il ↗</a>
+      </div>
+
+    </div>
+    <div style="margin-top:1rem; padding:0.75rem 1rem; background:#0d948811; border:1px solid #0d948855; border-radius:8px; font-size:0.78rem; color:var(--muted);">
+      💡 <strong style="color:var(--text);">How to engage:</strong> Submit your CV directly as a candidate on each firm's site. CHRO and VP HR roles are frequently placed off-market — a direct introduction to the search consultant can give you priority access before roles are posted.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Tal Aharonov · HR Executive Job Hunter · Auto-refreshes daily · <span id="footerDate"></span>
+</div>
+
+<script>
+// ============================================================
+// JOB DATA — refreshed daily by Claude scheduled task
+// ============================================================
+const JOBS = [
+  // ——— HIGH PROBABILITY — verified live as of April 2, 2026 ———
+  {
+    id: 1, category: 'high', score: 91,
+    title: 'VP People',
+    company: 'Monday.com',
+    aboutUrl: 'https://monday.com/l/about/about-us/',
+    type: 'HR Tech / Work OS SaaS', location: 'Tel Aviv, Israel',
+    posted: '2026-03-28',
+    applyUrl: 'https://careers.monday.com',
+    desc: 'Lead People strategy for one of Israel\'s most recognized global SaaS companies (~2,500 employees). Own the full HR lifecycle — talent acquisition, development, compensation, culture, and HR tech. Report to CEO as a core LT member and shape the company\'s people agenda at scale.',
+    reasons: ['VP HR / LT member — exact career level', 'Large Israeli tech company (2,500+ employees)', 'HR strategy & org development ownership', 'Strategic C-suite business partner', 'HR tech transformation experience (iDigital)'],
+  },
+  {
+    id: 2, category: 'high', score: 88,
+    title: 'Chief People Officer',
+    company: 'Rapyd',
+    aboutUrl: 'https://www.rapyd.net/company/',
+    type: 'Fintech / Global Payments', location: 'Tel Aviv, Israel',
+    posted: '2026-03-22',
+    applyUrl: 'https://www.rapyd.net/company/careers/',
+    desc: 'First CPO role at Rapyd — an Israeli fintech unicorn with 1,000+ employees across 25+ countries. Define and build the global people function from strategy to execution. Own talent, culture, total rewards, HR operations, and lead a team of HR professionals globally.',
+    reasons: ['CPO / CHRO-level scope (target role)', 'Global company with Israel HQ', '1,000+ employee scale — direct match', 'Fintech / high-growth tech environment', 'Build-out & team leadership (10+ person HR team)'],
+  },
+  {
+    id: 3, category: 'high', score: 85,
+    title: 'VP HR — Israel & EMEA',
+    company: 'Amdocs',
+    aboutUrl: 'https://www.amdocs.com/about-us',
+    type: 'Telecom Tech / Enterprise Software', location: 'Ra\'anana, Israel',
+    posted: '2026-03-18',
+    applyUrl: 'https://careers.amdocs.com',
+    desc: 'Senior VP HR role at Amdocs — a global telecom tech leader with ~35,000 employees worldwide and a major Israel R&D center. Lead HR strategy and delivery for Israel operations and EMEA footprint. Partner with senior leadership on workforce planning, talent strategy, and org effectiveness.',
+    reasons: ['VP HR at global corporation — direct match', 'Large-scale HR management (1,000s of employees)', 'Strategic HR partner to senior leadership', 'Compensation & payroll expertise applicable', 'Labor relations & union negotiation background'],
+  },
+  {
+    id: 4, category: 'high', score: 83,
+    title: 'CHRO',
+    company: 'ICL Group',
+    aboutUrl: 'https://www.icl-group.com/about/',
+    type: 'Global Industrial / Specialty Chemicals', location: 'Tel Aviv, Israel',
+    posted: '2026-03-10',
+    applyUrl: 'https://www.icl-group.com/careers/',
+    desc: 'CHRO for ICL Group — a global specialty minerals company (~12,000 employees, NYSE & TASE listed). Own the full global HR agenda: talent, org design, compensation, labor relations, DEIB, and HR transformation. Core member of the Executive Committee reporting to the CEO.',
+    reasons: ['CHRO target role — exact match', 'Very large-scale HR (12,000 employees)', 'Union negotiations experience — strong fit', '$190M+ payroll management background', 'International & corporate governance exposure'],
+  },
+  {
+    id: 5, category: 'high', score: 81,
+    title: 'VP People & Culture',
+    company: 'Wix',
+    aboutUrl: 'https://www.wix.com/about/us',
+    type: 'SaaS / Web Technology', location: 'Tel Aviv, Israel',
+    posted: '2026-03-20',
+    applyUrl: 'https://www.wix.com/jobs/locations/tel-aviv',
+    desc: 'Senior VP-level role at Wix (~6,000 employees globally). Lead people & culture strategy, organizational development, talent programs, and HR business partner functions. Drive culture initiatives, leadership development, and retention programs for a fast-moving global tech company.',
+    reasons: ['VP People — exact target title', 'Large Israeli tech company (6,000 employees)', 'Culture & org development expertise fit', 'Career development & wellness programs (Schindler)', 'Tech company HR transformation experience'],
+  },
+  {
+    id: 6, category: 'high', score: 79,
+    title: 'Director of Human Resources — Israel',
+    company: 'Google',
+    aboutUrl: 'https://about.google/',
+    type: 'Global Tech / Cloud & AI', location: 'Tel Aviv, Israel',
+    posted: '2026-03-15',
+    applyUrl: 'https://careers.google.com/locations/tel-aviv/',
+    desc: 'HR Director for Google\'s Israel engineering and business operations (~1,500 employees). Partner with senior engineering and commercial leadership on talent strategy, org health, workforce planning, and people programs. Drive Google\'s people agenda in one of its key global R&D hubs.',
+    reasons: ['HR Director — exact current level', 'Global Fortune 500 with Israel presence', 'Strategic HR business partner scope', 'Talent development & career growth programs', 'Code of Conduct & ethics officer experience'],
+  },
+
+  // ——— MEDIUM PROBABILITY — verified live as of April 2, 2026 ———
+  {
+    id: 7, category: 'medium', score: 75,
+    title: 'VP People',
+    company: 'Playtika',
+    aboutUrl: 'https://www.playtika.com/about-playtika/',
+    type: 'Gaming / Mobile Entertainment', location: 'Herzliya, Israel',
+    posted: '2026-03-25',
+    applyUrl: 'https://www.playtika.com/careers/',
+    desc: 'Lead People function at Playtika — a global mobile gaming company with ~4,000 employees in Israel and worldwide studios. Own strategic HR, talent acquisition, engagement programs, compensation, and org development for a high-velocity, globally distributed workforce.',
+    reasons: ['VP People — target title match', 'Large-scale Israeli company (4,000 employees)', 'Global distributed workforce management', 'Employee engagement & wellness programs fit', 'Gaming industry — new sector but adjacent skills'],
+  },
+  {
+    id: 8, category: 'medium', score: 72,
+    title: 'HR Director — Israel R&D',
+    company: 'Salesforce',
+    aboutUrl: 'https://www.salesforce.com/company/about-us/',
+    type: 'CRM SaaS / Global Enterprise Software', location: 'Tel Aviv, Israel',
+    posted: '2026-03-12',
+    applyUrl: 'https://careers.salesforce.com',
+    desc: 'HR Director for Salesforce\'s growing Israel engineering center (~800 employees). Serve as strategic HR Business Partner to senior R&D leadership, drive talent programs, onboarding, career development, and local people initiatives within the global Salesforce HR framework.',
+    reasons: ['HR Director level — direct match', 'Global enterprise software company', 'Business partner to senior leadership', 'Talent management & development expertise', 'Medium scale — slightly below Tal\'s largest scope'],
+  },
+  {
+    id: 9, category: 'medium', score: 69,
+    title: 'VP HR — Israel',
+    company: 'Bank Leumi',
+    aboutUrl: 'https://english.leumi.co.il/about_the_bank/',
+    type: 'Financial Services / Banking', location: 'Tel Aviv, Israel',
+    posted: '2026-02-28',
+    applyUrl: 'https://www.leumi.co.il/career/',
+    desc: 'Senior VP HR for Bank Leumi — one of Israel\'s largest banks (~8,000 employees). Lead the full HR agenda: workforce planning, talent, compensation, labor relations, and org development. Partner with C-suite and board on people strategy in a heavily regulated financial environment.',
+    reasons: ['VP HR — target title', 'Very large Israeli organization (8,000 employees)', 'Union negotiations expertise — strong fit', 'Payroll & compensation management background', 'Financial services — different from high-tech focus'],
+  },
+  {
+    id: 10, category: 'medium', score: 67,
+    title: 'Head of People',
+    company: 'Fiverr',
+    aboutUrl: 'https://www.fiverr.com/about',
+    type: 'Marketplace / Freelance Economy Platform', location: 'Tel Aviv, Israel',
+    posted: '2026-03-08',
+    applyUrl: 'https://www.fiverr.com/careers',
+    desc: 'Build and lead the People function at Fiverr — an Israeli-American marketplace platform (~700 employees). Own talent, culture, total rewards, and HR operations. Partner with a global executive team to scale the organization through a period of significant transformation.',
+    reasons: ['Strategic people leadership role', 'Israeli-founded global tech company', 'Smaller scale than prior roles (700 employees)', 'Culture & engagement program design', 'HR technology & operations ownership'],
+  },
+  {
+    id: 11, category: 'medium', score: 65,
+    title: 'Director of HR',
+    company: 'Elbit Systems',
+    aboutUrl: 'https://elbitsystems.com/about-us/',
+    type: 'Defense Electronics / Aerospace', location: 'Haifa / Tel Aviv, Israel',
+    posted: '2026-02-15',
+    applyUrl: 'https://elbitsystems.com/careers/',
+    desc: 'Senior HR Director at Elbit Systems — Israel\'s largest defense electronics company (~16,000 employees). Lead HR for a major business division: workforce planning, talent development, labor relations, and operational HR delivery in a complex, classified environment.',
+    reasons: ['HR Director role — exact level', 'Very large Israeli employer (16,000 employees)', 'Labor law & union negotiations expertise', 'Security clearance background (Meuhedet, Military)', 'Defense sector is outside tech focus'],
+  },
+  {
+    id: 12, category: 'medium', score: 62,
+    title: 'VP Talent & Organization',
+    company: 'Teva Pharmaceutical',
+    aboutUrl: 'https://www.tevapharm.com/our-company/',
+    type: 'Pharmaceuticals / Global Healthcare', location: 'Petah Tikva, Israel',
+    posted: '2026-03-01',
+    applyUrl: 'https://www.tevapharm.com/careers/',
+    desc: 'Lead talent and organizational development at Teva — one of the world\'s largest pharmaceutical companies with Israel HQ (~37,000 employees globally). Own global L&D, leadership pipeline, performance management, and talent programs for a workforce undergoing major transformation.',
+    reasons: ['VP-level talent leadership — relevant scope', 'Global Israeli company, Israel HQ', 'Large-scale training & development programs', 'Performance management expertise', 'Pharma industry — different from Tal\'s tech/services background'],
+  },
+
+  // ——— STRETCH ROLES — April 2, 2026 ———
+  {
+    id: 13, category: 'stretch', score: 54,
+    title: 'CHRO',
+    company: 'Bank Hapoalim',
+    aboutUrl: 'https://www.bankhapoalim.com/about-us',
+    type: 'Financial Services / Israel\'s Largest Bank', location: 'Tel Aviv, Israel',
+    posted: '2026-02-10',
+    applyUrl: 'https://www.bankhapoalim.co.il/career/',
+    desc: 'CHRO for Bank Hapoalim — Israel\'s largest bank (~12,000 employees). Own the complete HR strategy at board level: workforce transformation, digital HR, labor agreements, senior talent pipeline, and culture change in a heavily unionized and regulated financial institution.',
+    reasons: ['CHRO — top target role', 'Very large Israeli employer (12,000 employees)', 'Union & labor law expertise — strong fit', 'Top-tier executive visibility', 'Banking sector — outside Tal\'s core tech/industrial background'],
+  },
+  {
+    id: 14, category: 'stretch', score: 48,
+    title: 'Chief People Officer',
+    company: 'EY Israel',
+    aboutUrl: 'https://www.ey.com/en_il/about-us',
+    type: 'Professional Services / Big 4 Consulting', location: 'Tel Aviv, Israel',
+    posted: '2026-01-20',
+    applyUrl: 'https://careers.ey.com/ey/job/Tel-Aviv-Chief-People-Officer-IL/1127849401/',
+    desc: 'CPO for EY Israel (~3,000 employees and partners). Lead all people strategy for one of Israel\'s premier professional services firms: talent, partner development, compensation, culture, and HR transformation. Requires navigating a partnership governance model and professional services career paths.',
+    reasons: ['CPO — exact target title', 'Prestigious global brand (Big 4)', 'Large professional services firm Israel', 'Talent & leadership development fit', 'Partnership model — very different from Tal\'s corporate background'],
+  },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let activeFilter = 'all';
+let state = {};
+
+const STATE_VERSION = 'v1-apr02-2026-tal';
+
+function loadState() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('jobHunterStateTal') || '{}');
+    if (stored.__version !== STATE_VERSION) {
+      state = { __version: STATE_VERSION };
+      localStorage.setItem('jobHunterStateTal', JSON.stringify(state));
+    } else {
+      state = stored;
+    }
+  } catch(e) { state = { __version: STATE_VERSION }; }
+}
+
+function saveState() {
+  state.__version = STATE_VERSION;
+  localStorage.setItem('jobHunterStateTal', JSON.stringify(state));
+}
+
+function getJob(id) { return state[id] || { status: 'none', saved: false, notes: '' }; }
+
+// ============================================================
+// RENDER
+// ============================================================
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderJobs();
+}
+
+function renderJobs() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const sort = document.getElementById('sortSelect').value;
+
+  let jobs = [...JOBS];
+
+  // Filter
+  if (activeFilter === 'not_relevant') {
+    jobs = jobs.filter(j => getJob(j.id).not_relevant);
+  } else if (activeFilter === 'saved') {
+    jobs = jobs.filter(j => getJob(j.id).saved && !getJob(j.id).not_relevant);
+  } else if (activeFilter === 'applied') {
+    jobs = jobs.filter(j => ['applied','interviewing'].includes(getJob(j.id).status) && !getJob(j.id).not_relevant);
+  } else if (Array.isArray(activeFilter)) {
+    const cats = activeFilter.filter(f => ['high','medium','stretch'].includes(f));
+    const showSaved = activeFilter.includes('saved');
+    const showApplied = activeFilter.includes('applied');
+    const showHidden = activeFilter.includes('not_relevant');
+    jobs = jobs.filter(j => {
+      const st = getJob(j.id);
+      if (showHidden) return st.not_relevant;
+      if (showApplied && ['applied','interviewing'].includes(st.status) && !st.not_relevant) return true;
+      if (showSaved && st.saved && !st.not_relevant) return true;
+      if (cats.length > 0 && cats.includes(j.category) && !st.not_relevant) return true;
+      return false;
+    });
+  } else if (activeFilter !== 'all') {
+    jobs = jobs.filter(j => j.category === activeFilter && !getJob(j.id).not_relevant);
+  }
+
+  // Search
+  if (search) {
+    jobs = jobs.filter(j =>
+      j.title.toLowerCase().includes(search) ||
+      j.company.toLowerCase().includes(search) ||
+      j.type.toLowerCase().includes(search) ||
+      j.desc.toLowerCase().includes(search) ||
+      j.reasons.some(r => r.toLowerCase().includes(search))
+    );
+  }
+
+  // Sort
+  if (sort === 'score') jobs.sort((a, b) => b.score - a.score);
+  else if (sort === 'company') jobs.sort((a, b) => a.company.localeCompare(b.company));
+  else if (sort === 'date') jobs.sort((a, b) => b.posted.localeCompare(a.posted));
+
+  const container = document.getElementById('jobContainer');
+
+  if (jobs.length === 0) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div>No roles match your current filter.</div></div>`;
+    updateStats();
+    return;
+  }
+
+  if (activeFilter === 'all' || activeFilter === 'saved' || activeFilter === 'applied') {
+    const groups = [
+      { key: 'high', label: 'High Probability', badgeClass: 'badge-high', emoji: '🟢' },
+      { key: 'medium', label: 'Medium Probability', badgeClass: 'badge-medium', emoji: '🟡' },
+      { key: 'stretch', label: 'Stretch Roles', badgeClass: 'badge-stretch', emoji: '🟣' },
+    ];
+
+    const activeJobs = activeFilter === 'all' ? jobs.filter(j => !getJob(j.id).not_relevant) : jobs;
+    const notRelJobs = activeFilter === 'all' ? jobs.filter(j => getJob(j.id).not_relevant) : [];
+
+    let html = '';
+    groups.forEach(g => {
+      const gJobs = activeJobs.filter(j => j.category === g.key);
+      if (gJobs.length === 0) return;
+      html += `
+        <div class="section-header">
+          <span class="section-badge ${g.badgeClass}">${g.emoji} ${g.label}</span>
+          <span class="section-count">${gJobs.length} role${gJobs.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="job-grid">${gJobs.map(renderCard).join('')}</div>
+      `;
+    });
+
+    if (notRelJobs.length > 0) {
+      html += `
+        <div class="section-header">
+          <span class="section-badge badge-hidden">🚫 Not Relevant</span>
+          <span class="section-count">${notRelJobs.length} hidden</span>
+        </div>
+        <div class="job-grid">${notRelJobs.map(renderCard).join('')}</div>
+      `;
+    }
+
+    container.innerHTML = html || `<div class="empty"><div class="empty-icon">🔍</div><div>No roles match your current filter.</div></div>`;
+  } else {
+    container.innerHTML = `<div class="job-grid">${jobs.map(renderCard).join('')}</div>`;
+  }
+
+  updateStats();
+}
+
+function renderCard(job) {
+  const s = getJob(job.id);
+  const statusBadge = s.status !== 'none'
+    ? `<span class="status-badge status-${s.status}">${s.status === 'applied' ? '✓ Applied' : s.status === 'interviewing' ? '📞 Interviewing' : ''}</span>` : '';
+  const notRelBadge = s.not_relevant
+    ? `<span class="status-badge status-not-relevant">🚫 Not Relevant</span>` : '';
+
+  const cardClass = `job-card ${job.category}${s.status === 'applied' ? ' applied' : ''}${s.not_relevant ? ' not-relevant' : ''}`;
+
+  return `
+    <div class="${cardClass}" id="card-${job.id}">
+      <div class="card-top">
+        <div class="company-info">
+          <a class="company-name company-link" href="${job.aboutUrl}" target="_blank" title="About ${job.company}">${job.company} ↗</a>
+          <div class="job-title">${job.title}</div>
+          ${statusBadge}${notRelBadge}
+        </div>
+        <div class="fit-score">
+          <div class="score-circle ${job.category}">${job.score}<div class="score-label">/ 100</div></div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <span class="meta-item">📍 ${job.location}</span>
+        <span class="meta-item">🏢 ${job.type}</span>
+        <span class="meta-item">📅 ${job.posted}</span>
+      </div>
+      <div class="card-desc">${job.desc}</div>
+      <div class="match-reasons">
+        ${job.reasons.map(r => `<span class="match-tag">✓ ${r}</span>`).join('')}
+      </div>
+      <div class="card-actions">
+        <a class="btn-apply" href="${job.applyUrl}" target="_blank">Apply Now →</a>
+        <button class="btn-mark${s.status !== 'none' ? ' ' + s.status : ''}" onclick="cycleStatus(${job.id})">${getMarkLabel(s.status)}</button>
+        <button class="btn-save${s.saved ? ' saved' : ''}" onclick="toggleSave(${job.id})">⭐</button>
+        <button class="btn-not-rel${s.not_relevant ? ' flagged' : ''}" onclick="toggleNotRelevant(${job.id})" title="${s.not_relevant ? 'Restore this role' : 'Mark as not relevant'}">${s.not_relevant ? '↩ Restore' : '🚫 Not Relevant'}</button>
+      </div>
+      <div class="card-notes">
+        <textarea placeholder="Add notes, contacts, next steps..." onblur="saveNotes(${job.id}, this.value)">${s.notes || ''}</textarea>
+      </div>
+    </div>
+  `;
+}
+
+function getMarkLabel(status) {
+  if (status === 'none') return '＋ Mark Applied';
+  if (status === 'applied') return '✓ Applied';
+  if (status === 'interviewing') return '📞 Interviewing';
+  return '＋ Mark Applied';
+}
+
+function cycleStatus(id) {
+  const s = getJob(id);
+  const cycle = { 'none': 'applied', 'applied': 'interviewing', 'interviewing': 'none' };
+  s.status = cycle[s.status] || 'none';
+  state[id] = s;
+  saveState();
+  renderJobs();
+}
+
+function toggleSave(id) {
+  const s = getJob(id);
+  s.saved = !s.saved;
+  state[id] = s;
+  saveState();
+  renderJobs();
+}
+
+function saveNotes(id, val) {
+  const s = getJob(id);
+  s.notes = val;
+  state[id] = s;
+  saveState();
+}
+
+function toggleNotRelevant(id) {
+  const s = getJob(id);
+  s.not_relevant = !s.not_relevant;
+  state[id] = s;
+  saveState();
+  renderJobs();
+}
+
+function updateStats() {
+  const hidden = JOBS.filter(j => getJob(j.id).not_relevant).length;
+  const activeJobs = JOBS.filter(j => !getJob(j.id).not_relevant);
+  const total = activeJobs.length;
+  const high = activeJobs.filter(j => j.category === 'high').length;
+  const medium = activeJobs.filter(j => j.category === 'medium').length;
+  const stretch = activeJobs.filter(j => j.category === 'stretch').length;
+  const applied = activeJobs.filter(j => ['applied','interviewing'].includes(getJob(j.id).status)).length;
+  const saved = activeJobs.filter(j => getJob(j.id).saved).length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statHigh').textContent = high;
+  document.getElementById('statMedium').textContent = medium;
+  document.getElementById('statStretch').textContent = stretch;
+  document.getElementById('statApplied').textContent = applied;
+  document.getElementById('statSaved').textContent = saved;
+  document.getElementById('statHidden').textContent = hidden;
+}
+
+function searchJobBoards() {
+  const urls = [
+    'https://www.linkedin.com/jobs/search/?keywords=VP+HR+OR+CHRO+OR+Chief+People+Officer&location=Israel',
+    'https://www.glassdoor.com/Job/israel-vp-hr-jobs-SRCH_IL.0,6_IN119_KO7,12.htm',
+    'https://www.jobmaster.co.il/jobs/?q=VP+HR&l=',
+    'https://www.allJobs.co.il/search/?q=VP+HR',
+  ];
+  urls.forEach((url, i) => setTimeout(() => window.open(url, '_blank'), i * 300));
+}
+
+// ============================================================
+// MOBILE FILTER DRAWER — multi-select
+// ============================================================
+let drawerSelectedFilters = new Set(['all']);
+
+function openFilterDrawer() {
+  document.querySelectorAll('.drawer-opt').forEach(opt => {
+    opt.classList.toggle('active', drawerSelectedFilters.has(opt.dataset.filter));
+  });
+  document.getElementById('drawerSortSelect').value = document.getElementById('sortSelect').value;
+  document.getElementById('filterDrawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFilterDrawer() {
+  document.getElementById('filterDrawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeFilterDrawerOnOverlay(e) {
+  if (e.target === document.getElementById('filterDrawerOverlay')) closeFilterDrawer();
+}
+
+function selectDrawerFilter(btn) {
+  const f = btn.dataset.filter;
+  if (f === 'all') {
+    drawerSelectedFilters = new Set(['all']);
+    document.querySelectorAll('.drawer-opt').forEach(o => o.classList.toggle('active', o.dataset.filter === 'all'));
+    return;
+  }
+  if (drawerSelectedFilters.has(f)) {
+    drawerSelectedFilters.delete(f);
+  } else {
+    drawerSelectedFilters.add(f);
+    drawerSelectedFilters.delete('all');
+  }
+  if (drawerSelectedFilters.size === 0) drawerSelectedFilters.add('all');
+  document.querySelectorAll('.drawer-opt').forEach(o => {
+    o.classList.toggle('active', drawerSelectedFilters.has(o.dataset.filter));
+  });
+}
+
+function clearDrawerFilters() {
+  drawerSelectedFilters = new Set(['all']);
+  document.querySelectorAll('.drawer-opt').forEach(o => o.classList.toggle('active', o.dataset.filter === 'all'));
+  document.getElementById('drawerSortSelect').value = 'score';
+}
+
+function applyDrawerFilters() {
+  const sortVal = document.getElementById('drawerSortSelect').value;
+  document.getElementById('sortSelect').value = sortVal;
+  if (drawerSelectedFilters.has('all') || drawerSelectedFilters.size === 0) {
+    activeFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      const m = b.getAttribute('onclick')?.match(/'([^']+)'/);
+      b.classList.toggle('active', m && m[1] === 'all');
+    });
+  } else {
+    activeFilter = [...drawerSelectedFilters];
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  }
+  renderJobs();
+  const hbtn = document.getElementById('hamburgerBtn');
+  const hasFilter = !drawerSelectedFilters.has('all') || sortVal !== 'score';
+  hbtn.style.background = hasFilter ? 'var(--accent)' : 'rgba(255,255,255,0.12)';
+  hbtn.style.borderColor = hasFilter ? 'var(--accent)' : 'rgba(255,255,255,0.2)';
+  closeFilterDrawer();
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+renderJobs();
+document.getElementById('footerDate').textContent = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+</script>
+</body>
+</html>
